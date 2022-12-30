@@ -13,11 +13,14 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
             sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 
 sudo apt update
-sudo apt install -y nvidia-docker2
+sudo apt install -y nvidia-docker2 --no-install-recommends
 sudo systemctl restart docker
 ```
 
-Verifying GPU access inside docker:
+The `pytorchlightning/pytorch_lightning:latest` image is used for the examples, it is several GB in size, so will take a few moments to download.
+
+Verify GPU access inside docker with `nvidia-smi`:
+
 ```bash
 $ docker-compose run shell
 Creating actuated_shell_run ... done
@@ -43,7 +46,8 @@ Tue Nov 22 21:22:46 2022
 +-----------------------------------------------------------------------------+
 ```
 
-### Running the sample job
+### Run a sample training job
+
 
 ```bash
 $ docker-compose run traindemo

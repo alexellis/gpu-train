@@ -1,4 +1,4 @@
-FROM pytorchlightning/pytorch_lightning
+FROM pytorchlightning/pytorch_lightning:latest
 
 WORKDIR /app
 
