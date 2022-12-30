@@ -1,0 +1,37 @@
+services:
+
+  shell:
+    stdin_open: true
+    tty: true
+    entrypoint: sh
+    build:
+      context: .
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  traindemo:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      INPUT_DIMS: "100"
+      OUTPUT_DIMS: "1"
+      WIDTH: "256"
+      DEPTH: "32"
+      BATCH_SIZE: "100"
+      NUM_BATCHES: "100"
+      MIN_EPOCHS: "25"
+      MAX_EPOCHS: "50"
